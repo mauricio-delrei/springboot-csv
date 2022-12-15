@@ -2,6 +2,7 @@ package com.br.kata.consoleapp.csv.controller;
 
 import com.br.kata.consoleapp.csv.helper.CSVHelper;
 import com.br.kata.consoleapp.csv.message.ResponseMessage;
+import com.br.kata.consoleapp.csv.model.Customer;
 import com.br.kata.consoleapp.csv.service.CustomerCSVDownloadService;
 import com.br.kata.consoleapp.csv.service.CustomerCSVUploadService;
 import org.springframework.core.io.InputStreamResource;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/csv")
@@ -63,6 +66,20 @@ public class CustomerCSVController {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename)
                 .contentType(MediaType.parseMediaType("application/csv"))
                 .body(file);
+    }
+    @GetMapping("/customers")
+    public ResponseEntity<List<Customer>> getAllCustomers() {
+        try {
+            List<Customer> customers = customerCSVUploadService.getAllCustomers();
+
+            if (customers.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+
+            return new ResponseEntity<>(customers, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 

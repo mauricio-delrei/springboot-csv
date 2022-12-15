@@ -2,11 +2,11 @@ package com.br.kata.consoleapp.csv.helper;
 
 import com.br.kata.consoleapp.csv.model.Customer;
 import org.apache.commons.csv.CSVFormat;
-import org.springframework.web.multipart.MultipartFile;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
-import org.apache.commons.csv.QuoteMode;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -20,7 +20,9 @@ import java.util.List;
 
 public class CSVHelper {
     public static String TYPE = "text/csv";
-    static String[] HEADERs = { "Id", "Title", "Description", "Published" };
+    static String[] HEADERs = { "Id","Customer Ref", "Customer Name", "Address Line 1", "Address Line 2",
+    "Town","County","Country","Postcode"};
+
 
     public static boolean hasCSVFormat(MultipartFile file) {
 
@@ -62,7 +64,7 @@ public class CSVHelper {
     }
 
     public static ByteArrayInputStream customersToCSV(List<Customer> customers) {
-        final CSVFormat format = CSVFormat.DEFAULT.withQuoteMode(QuoteMode.MINIMAL);
+        final CSVFormat format = CSVFormat.DEFAULT.withHeader(HEADERs);
         try (ByteArrayOutputStream out = new ByteArrayOutputStream();
              CSVPrinter csvPrinter = new CSVPrinter(new PrintWriter(out), format)) {
             for (Customer customer : customers) {

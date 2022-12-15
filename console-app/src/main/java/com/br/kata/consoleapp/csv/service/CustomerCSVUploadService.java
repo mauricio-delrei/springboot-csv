@@ -26,4 +26,7 @@ public class CustomerCSVUploadService {
             throw new RuntimeException("fail to store csv data: " + e.getMessage());
         }
     }
+    public List<Customer> getAllCustomers() {
+        return customerRepository.findAll();
+    }
 }
