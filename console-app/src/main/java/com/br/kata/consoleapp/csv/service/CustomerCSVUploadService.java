@@ -20,8 +20,8 @@ public class CustomerCSVUploadService {
 
     public void save(MultipartFile file){
         try {
-            List<Customer> tutorials = CSVHelper.csvToCostumers(file.getInputStream());
-            customerRepository.saveAll(tutorials);
+            List<Customer> customers = CSVHelper.csvToCostumers(file.getInputStream());
+            customerRepository.saveAll(customers);
         } catch (IOException e) {
             throw new RuntimeException("fail to store csv data: " + e.getMessage());
         }
