@@ -19,7 +19,7 @@ Payload Example:
 }
 
 
-GET http://localhost:8080/customer (Method that returns a list of customers registered in the database)
+GET http://localhost:8080/api/csv/customers (Method that returns a list of customers registered in the database)
 
 GET http://localhost:8080/api/csv/download (Method that download the .csv file)
 
